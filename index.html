@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme Simply Me</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+  }
+  #demo{
+  	height: 65px;
+  }
+  #distancia{
+  	height: 20px;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+      background-color: #1abc9c; /* Green */
+      color: #ffffff;
+  }
+  .bg-2 { 
+      background-color: #474e5d; /* Dark Blue */
+      color: #ffffff;
+  }
+  .bg-3 { 
+      background-color: #ffffff; /* White */
+      color: #555555;
+  }
+  .bg-4 { 
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+  }
+  .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
+ 
+  </style>
+
+
+
+</head>
+<body>
+
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <!-- <a class="navbar-brand" href="#">Me</a> -->
+      <a id="td6" style="padding:20px;" href="#"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">WHO</a></li>
+        <li><a href="#">WHAT</a></li>
+        <li><a href="#">WHERE</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center" align="center">
+  <h3 class="margin">Did you know?</h3>
+  
+  <h3 id="demo">Clica no botão para ver mais curiosidades.</h3>
+  <h5 id="distancia"></h5>
+  <img src="" id="image">
+   <div class="col-xs-12" style="height:50px;"></div>
+  <button id="buttonCuriosidades" onclick="myFunction()" class="btn btn-default" style="color:#1abc9c;">MORE FACTS</button>
+
+<table>
+    <!--<tr><td id="td1"></td><td id="td2"></td></tr> -->
+    <!-- <tr><td id="td3"></td><td id="td4"></td></tr> -->
+    <tr><td id="td6"></td></tr>
+    <!-- <tr><td>Address</td><td id="address"></td></tr> -->
+    <!--<tr><td>Postal Code</td><td id="postalCode"></td></tr>-->
+</table>
+
+<footer align="center">
+	<h3 style="color:black">Rogerio's App</h3>
+</footer>
+
+</div>
+
+
+
+<!-- Second Container -->
+
+<!-- Third Container (Grid) -->
+
+<!-- Footer -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+window.lat = 0;
+window.lng = 0;
+var url = "http://www.mapquestapi.com/geocoding/v1/reverse?key=kFNMhlge8uFUbXGvjW1WR7ezgxubYcWk&location={lat},{lng}&includeRoadMetadata=true&includeNearestIntersection=true";
+function getLocation() {
+    navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+function showPosition(position) {
+    url = url.replace("{lat}",position.coords.latitude)
+    url = url.replace("{lng}",position.coords.longitude);
+    window.lat = position.coords.latitude;
+	window.lng = position.coords.longitude;
+    console.log(url);
+    $.ajax({url:url}).done(function(data){
+        console.log(data["results"][0]["locations"][0]);
+        $("#address").html(data["results"][0]["locations"][0].street);
+        $("#postalCode").html(data["results"][0]["locations"][0].postalCode);
+        $("#postalCode").html(data["results"][0]["locations"][0].postalCode);
+        $("#td2").html(data["results"][0]["locations"][0].adminArea1);
+        $("#td1").html(data["results"][0]["locations"][0].adminArea1Type);
+        $("#td4").html(data["results"][0]["locations"][0].adminArea3);
+        $("#td3").html(data["results"][0]["locations"][0].adminArea3Type);
+        $("#td6").html(data["results"][0]["locations"][0].adminArea5);
+        $("#td5").html(data["results"][0]["locations"][0].adminArea5Type);
+    });
+}
+getLocation();
+</script>
+
+
+<script>
+function myFunction() {
+
+  document.getElementById("distancia").innerHTML = "";
+
+
+  if (document.getElementById('td6').text != ''){
+
+  var frases = ["Blandy's Wine Lodge tem vinho.", "O Ribeiro Frio é lá em cima.", "O La Vie é um centro comercial.", "As piscinas do Porto Moniz são fixes.", "O Roseiral do Arco tem rosas.", "A praia da Calheta é porreira."];
+
+
+  var local = [
+  				{nome: "La Vie", longitude:-16.914049, latitude:32.647471},
+  				{nome: "Roseiral do Arco", longitude:-16.955045, latitude:32.825686, img: 'madeira.jpg'},
+  				{nome: "Calheta", longitude:-17.179113, latitude:32.738242},
+  				{nome: "Porto Moniz", longitude:-17.170608, latitude:32.866684},
+  				{nome: "Blandy's Wine", longitude:-16.910601, latitude:32.647857},
+  				{nome: "Ribeiro Frio", longitude:-16.883333, latitude:32.733333}
+  			];
+
+  var x = Math.floor((Math.random() * frases.length));
+  document.getElementById("demo").innerHTML = frases[x];
+  var flag = true;
+
+  local.forEach(function(ele){
+  	if(frases[x].includes(ele.nome) && flag){
+  		getDistanceFromLatLonInKm(window.lat, window.lng, ele.latitude, ele.longitude,'Km');
+  		if(typeof ele.img !== "undefined"){
+  			$(".bg-1").css({
+  							"background-image":"url('madeira.jpg')",
+  							"background-size":"100% 100%",
+  							"background-repeat":"no-repeat"
+  						});
+  		}else{
+			$(".bg-1").css({
+					"background-image":"",
+					"background-color":"#1abc9c"
+				});
+  		}
+  		flag = false;
+  	}
+  })  
+
+  /*if (frases[x].includes(local.nome)) {
+
+
+   
+
+
+  	alert("oh yeah");
+
+  	//getDistanceFromLatLonInKm(32.6538111,-16.9154246,32.648542,-16.910817,'Km');
+    getDistanceFromLatLonInKm(window.lat, window.lng, local.latitude, local.longitude,'Km');
+  	//document.getElementById("distancia").innerHTML = "vai aqui";
+  }*/
+
+  //document.getElementById("demo").innerHTML = frases[x];
+
+}
+
+else {
+
+	document.getElementById("demo").innerHTML = "You need to allow your device to use your current location!";
+}
+
+}
+</script>
+
+
+<script type="text/javascript">
+function getDistanceFromLatLonInKm(latitude1,longitude1,latitude2,longitude2,units) {
+  var p = 0.017453292519943295;    //This is  Math.PI / 180
+  var c = Math.cos;
+  var a = 0.5 - c((latitude2 - latitude1) * p)/2 + 
+          c(latitude1 * p) * c(latitude2 * p) * 
+          (1 - c((longitude2 - longitude1) * p))/2;
+  var R = 6371; //  Earth distance in km so it will return the distance in km
+ var dist = 2 * R * Math.asin(Math.sqrt(a)); 
+
+document.getElementById("distancia").innerHTML = (Math.round(dist * 10) / 10)+" Km"; 
+}
+</script>
+
+
+
+
+</body>
+</html>
