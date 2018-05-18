@@ -7,19 +7,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
   body {
+      
+
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
       color: #f5f6f7;
   }
   #demo{
-  	height: 65px;
+    height: 65px;
   }
   #distancia{
-  	height: 20px;
+    height: 20px;
   }
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
@@ -55,6 +60,17 @@
   .navbar-nav  li a:hover {
       color: #1abc9c !important;
   }
+
+  #image {
+    opacity: 0.2;
+    
+}
+.jumbotron{
+  background-color: rgba(0,0,0,0.5);
+}
+h1,h2,h3,h4,h5,h6,p{
+      font-family: inherit !important;
+}
  
   </style>
 
@@ -75,40 +91,57 @@
         <span class="icon-bar"></span>                        
       </button>
       <!-- <a class="navbar-brand" href="#">Me</a> -->
-      <a id="td6" style="padding:20px;" href="#"></a>
+       
+
+      <!-- <a id="td6" style="padding:20px; color:black;" href="#">
+        
+        
+      </a>
+       -->
+
+
+   
+        <a style="padding:20px;" href="#">
+          <span style="color:black;" class="glyphicon glyphicon-map-marker"></span>
+          <a style="padding:1px;  text-align: right; color:black;" id="td6"></a>
+        </a>
+      
+
+
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">WHO</a></li>
-        <li><a href="#">WHAT</a></li>
-        <li><a href="#">WHERE</a></li>
+        <li><a href="#">LUGARES</a></li>
+        <li><a href="#">EVENTOS</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
+
+<!-- o DIv centro estava a usar esta classe class="container-fluid bg-1 text-center" -->
 <!-- First Container -->
-<div class="container-fluid bg-1 text-center" align="center">
-  <h3 class="margin">Did you know?</h3>
+<div id="centro" align="center" style="padding-top:100px;">
+
+<!-- ex classe jumbotron -->
+<div class="">
+  <h3 class="margin" style="font-size:18px; letter-spacing:5px;">SABIAS QUE...</h3>
   
-  <h3 id="demo">Clica no botão para ver mais curiosidades.</h3>
-  <h5 id="distancia"></h5>
+  <h3 style="margin: 20px; letter-spacing:1px;" id="demo">Clica no botão para ver mais curiosidades.</h3>
+  <h5 id="distancia" style="padding-bottom:80px;"></h5>
   <img src="" id="image">
    <div class="col-xs-12" style="height:50px;"></div>
-  <button id="buttonCuriosidades" onclick="myFunction()" class="btn btn-default" style="color:#1abc9c;">MORE FACTS</button>
+  <button style="background-color:white; border: none; padding: 8px 10px; font-size:18px; letter-spacing:1px; font-size:15px;" id="buttonCuriosidades" onclick="myFunction()" type="button">MAIS CURIOSIDADES</button>
 
 <table>
     <!--<tr><td id="td1"></td><td id="td2"></td></tr> -->
     <!-- <tr><td id="td3"></td><td id="td4"></td></tr> -->
-    <tr><td id="td6"></td></tr>
+    <tr><td style="letter-spacing:5px;" id="td6"></td></tr>     
     <!-- <tr><td>Address</td><td id="address"></td></tr> -->
     <!--<tr><td>Postal Code</td><td id="postalCode"></td></tr>-->
 </table>
 
-<footer align="center">
-	<h3 style="color:black">Rogerio's App</h3>
-</footer>
-
+</div>
 </div>
 
 
@@ -127,14 +160,17 @@ window.lat = 0;
 window.lng = 0;
 var url = "http://www.mapquestapi.com/geocoding/v1/reverse?key=kFNMhlge8uFUbXGvjW1WR7ezgxubYcWk&location={lat},{lng}&includeRoadMetadata=true&includeNearestIntersection=true";
 function getLocation() {
-    navigator.geolocation.getCurrentPosition(showPosition);
+  if(window.lat === 0)
+      navigator.geolocation.getCurrentPosition(showPosition);
+    else
+      navigator.geolocation.getCurrentPosition(updateCoord);
 }
 
 function showPosition(position) {
     url = url.replace("{lat}",position.coords.latitude)
     url = url.replace("{lng}",position.coords.longitude);
     window.lat = position.coords.latitude;
-	window.lng = position.coords.longitude;
+  window.lng = position.coords.longitude;
     console.log(url);
     $.ajax({url:url}).done(function(data){
         console.log(data["results"][0]["locations"][0]);
@@ -149,14 +185,41 @@ function showPosition(position) {
         $("#td5").html(data["results"][0]["locations"][0].adminArea5Type);
     });
 }
+
+function updateCoord(position){
+  window.lat = position.coords.latitude;
+  window.lng = position.coords.longitude;
+}
+
 getLocation();
-</script>
 
-
-<script>
 function myFunction() {
 
+  var cores = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
+      '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+      '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
+      '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+      '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', 
+      '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+      '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', 
+      '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+      '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
+      '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+
+  var z = Math.floor((Math.random() * cores.length));
+
+  //mudar background color
+ 
+  document.body.style.backgroundColor = cores[z];
+  document.getElementById("buttonCuriosidades").style.color = cores[z];
+  //mudar a cor do centro
+  //document.getElementById("centro").style.background = cores[z];
+
+  //getLocation();
   document.getElementById("distancia").innerHTML = "";
+
+  
+
 
 
   if (document.getElementById('td6').text != ''){
@@ -165,35 +228,36 @@ function myFunction() {
 
 
   var local = [
-  				{nome: "La Vie", longitude:-16.914049, latitude:32.647471},
-  				{nome: "Roseiral do Arco", longitude:-16.955045, latitude:32.825686, img: 'madeira.jpg'},
-  				{nome: "Calheta", longitude:-17.179113, latitude:32.738242},
-  				{nome: "Porto Moniz", longitude:-17.170608, latitude:32.866684},
-  				{nome: "Blandy's Wine", longitude:-16.910601, latitude:32.647857},
-  				{nome: "Ribeiro Frio", longitude:-16.883333, latitude:32.733333}
-  			];
+          {nome: "La Vie", longitude:-16.914049, latitude:32.647471},
+          {nome: "Roseiral do Arco", longitude:-16.955045, latitude:32.825686, img: 'madeira.jpg'},
+          {nome: "Calheta", longitude:-17.179113, latitude:32.738242},
+          {nome: "Porto Moniz", longitude:-17.170608, latitude:32.866684},
+          {nome: "Blandy's Wine", longitude:-16.910601, latitude:32.647857},
+          {nome: "Ribeiro Frio", longitude:-16.883333, latitude:32.733333}
+        ];
 
   var x = Math.floor((Math.random() * frases.length));
   document.getElementById("demo").innerHTML = frases[x];
   var flag = true;
 
   local.forEach(function(ele){
-  	if(frases[x].includes(ele.nome) && flag){
-  		getDistanceFromLatLonInKm(window.lat, window.lng, ele.latitude, ele.longitude,'Km');
-  		if(typeof ele.img !== "undefined"){
-  			$(".bg-1").css({
-  							"background-image":"url('madeira.jpg')",
-  							"background-size":"100% 100%",
-  							"background-repeat":"no-repeat"
-  						});
-  		}else{
-			$(".bg-1").css({
-					"background-image":"",
-					"background-color":"#1abc9c"
-				});
-  		}
-  		flag = false;
-  	}
+    if(frases[x].includes(ele.nome) && flag){
+      getDistanceFromLatLonInKm(window.lat, window.lng, ele.latitude, ele.longitude,'Km');
+      if(typeof ele.img !== "undefined"){
+        $(".bg-1").css({
+                "background-image":"url('madeira.jpg')",
+                "background-size":"100% 100%",
+                            
+                "background-repeat":"no-repeat"
+              });
+      }else{
+      $(".bg-1").css({
+          "background-image":"",
+          "background-color":"#1abc9c"
+        });
+      }
+      flag = false;
+    }
   })  
 
   /*if (frases[x].includes(local.nome)) {
@@ -202,11 +266,11 @@ function myFunction() {
    
 
 
-  	alert("oh yeah");
+    alert("oh yeah");
 
-  	//getDistanceFromLatLonInKm(32.6538111,-16.9154246,32.648542,-16.910817,'Km');
+    //getDistanceFromLatLonInKm(32.6538111,-16.9154246,32.648542,-16.910817,'Km');
     getDistanceFromLatLonInKm(window.lat, window.lng, local.latitude, local.longitude,'Km');
-  	//document.getElementById("distancia").innerHTML = "vai aqui";
+    //document.getElementById("distancia").innerHTML = "vai aqui";
   }*/
 
   //document.getElementById("demo").innerHTML = frases[x];
@@ -215,7 +279,7 @@ function myFunction() {
 
 else {
 
-	document.getElementById("demo").innerHTML = "You need to allow your device to use your current location!";
+  document.getElementById("demo").innerHTML = "Precisas de activar o GPS. Reinicia a app se o problema persistir.";
 }
 
 }
