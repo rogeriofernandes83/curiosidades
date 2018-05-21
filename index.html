@@ -19,6 +19,7 @@
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
       color: #f5f6f7;
+      background-color:#9ACD32;
   }
   #demo{
     height: 65px;
@@ -85,14 +86,73 @@
 h1,h2,h3,h4,h5,h6,p{
       font-family: inherit !important;
 }
+
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+
+
+
+
+
  
   </style>
 
 
 
 </head>
-<body>
+<body onload="carregando()" style="margin:0;">
 
+
+<div id="loader"></div>
 
 
 <!-- Navbar -->
@@ -113,8 +173,6 @@ h1,h2,h3,h4,h5,h6,p{
       </a>
        -->
 
-
-   
         <a style="padding:20px;" href="#">
           <span style="color:black;" class="glyphicon glyphicon-map-marker"></span>
           <a style="padding:1px;  text-align: right; color:black;" id="td6"></a>
@@ -145,7 +203,7 @@ h1,h2,h3,h4,h5,h6,p{
   <h5 id="distancia" style="padding-bottom:80px;"></h5>
   <img src="" id="image">
    <div class="col-xs-12" style="height:50px;"></div>
-  <button style="background-color:white; border: none; padding: 8px 10px; font-size:18px; letter-spacing:1px; font-size:15px;" id="buttonCuriosidades" onclick="myFunction()" type="button">MAIS CURIOSIDADES</button>
+  <button style="color:#9ACD32; background-color:white; border: none; padding: 8px 10px; font-size:18px; letter-spacing:1px; font-size:15px;" id="buttonCuriosidades" onclick="myFunction()" type="button">MAIS CURIOSIDADES</button>
 
 <table>
     <!--<tr><td id="td1"></td><td id="td2"></td></tr> -->
@@ -225,25 +283,31 @@ function updateCoord(position){
 
 getLocation();
 
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
 function myFunction() {
 
-  var cores = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
-      '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
-      '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A', 
-      '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
-      '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC', 
-      '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
-      '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680', 
-      '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
-      '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
-      '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+  var cores = ['#FF6633', '#FFB399', '', '#00B3E6', 
+      '#E6B333', '#999966', '#99FF99', '#B34D4D',
+      '#80B300', '#809900', '#E6B3B3'];
 
   var z = Math.floor((Math.random() * cores.length));
 
   //mudar background color
- 
-  document.body.style.backgroundColor = cores[z];
+  var cor = hexToRgb(cores[z]);
+  $("body").css("background-color","rgba("+cor.r+","+cor.g+","+cor.b+",0.5)");
+  //document.body.style.backgroundColor = cores[z];
+
+  //document.getElementById("centro").style.opacity = "0.3";
   document.getElementById("buttonCuriosidades").style.color = cores[z];
+
   //mudar a cor do centro
   //document.getElementById("centro").style.background = cores[z];
 
@@ -331,6 +395,29 @@ function getDistanceFromLatLonInKm(latitude1,longitude1,latitude2,longitude2,uni
 document.getElementById("distancia").innerHTML = (Math.round(dist * 10) / 10)+" Km"; 
 }
 </script>
+
+
+
+
+
+
+<script>
+var myVar;
+
+function carregando() {
+    myVar = setTimeout(showPage, 3000);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+
+
+
+
+
 
 
 
